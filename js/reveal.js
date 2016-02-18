@@ -32,19 +32,6 @@
 
 		// Configuration defaults, can be overridden at initialization time
 		config = {
-
-			// The "normal" size of the presentation, aspect ratio will be preserved
-			// when the presentation is scaled to fit different resolutions
-			width: "100vw",
-			height: "100vh",
-
-			// Factor of the display size that should remain empty around the content
-			margin: 0.1,
-
-			// Bounds for smallest/largest possible scale to apply to content
-			minScale: 0.2,
-			maxScale: 1.5,
-
 			// Display controls in the bottom right corner
 			controls: true,
 
@@ -172,8 +159,7 @@
 		// all current slides.
 		state = [],
 
-		// The current scale of the presentation (see width/height config)
-		scale = 1,
+		
 
 		// CSS transform that is currently applied to the slides container,
 		// split into two groups
@@ -1569,44 +1555,6 @@
 			dom.slides.style.width = size.width + 'px';
 			dom.slides.style.height = size.height + 'px';
 
-			// Determine scale of content to fit within available space
-			scale = Math.min( size.presentationWidth / size.width, size.presentationHeight / size.height );
-
-			// Respect max/min scale settings
-			scale = Math.max( scale, config.minScale );
-			scale = Math.min( scale, config.maxScale );
-
-			// Don't apply any scaling styles if scale is 1
-			if( scale === 1 ) {
-				dom.slides.style.zoom = '';
-				dom.slides.style.left = '';
-				dom.slides.style.top = '';
-				dom.slides.style.bottom = '';
-				dom.slides.style.right = '';
-				transformSlides( { layout: '' } );
-			}
-			else {
-				// Use zoom to scale up in desktop Chrome so that content
-				// remains crisp. We don't use zoom to scale down since that
-				// can lead to shifts in text layout/line breaks.
-				if( scale > 1 && !isMobileDevice && /chrome/i.test( navigator.userAgent ) && typeof dom.slides.style.zoom !== 'undefined' ) {
-					dom.slides.style.zoom = scale;
-					dom.slides.style.left = '';
-					dom.slides.style.top = '';
-					dom.slides.style.bottom = '';
-					dom.slides.style.right = '';
-					transformSlides( { layout: '' } );
-				}
-				// Apply scale transform as a fallback
-				else {
-					dom.slides.style.zoom = '';
-					dom.slides.style.left = '50%';
-					dom.slides.style.top = '50%';
-					dom.slides.style.bottom = 'auto';
-					dom.slides.style.right = 'auto';
-					transformSlides( { layout: 'translate(-50%, -50%) scale('+ scale +')' } );
-				}
-			}
 
 			// Select all slides, vertical and horizontal
 			var slides = toArray( dom.wrapper.querySelectorAll( SLIDES_SELECTOR ) );
