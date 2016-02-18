@@ -7,7 +7,7 @@
  */
 (function( root, factory ) {
 	if( typeof define === 'function' && define.amd ) {
-		// AMD. Register as an anonymous module.
+		// AMD. Register as an anonymous module.p
 		define( function() {
 			root.Reveal = factory();
 			return root.Reveal;
@@ -1561,13 +1561,9 @@
 
 			var size = getComputedSlideSize();
 
-			var slidePadding = 20; // TODO Dig this out of DOM
 
 			// Layout the contents of the slides
 			layoutSlideContents( config.width, config.height, slidePadding );
-
-			dom.slides.style.width = size.width + 'px';
-			dom.slides.style.height = size.height + 'px';
 
 			// Determine scale of content to fit within available space
 			scale = Math.min( size.presentationWidth / size.width, size.presentationHeight / size.height );
