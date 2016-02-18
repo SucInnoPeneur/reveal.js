@@ -32,10 +32,18 @@
 
 		// Configuration defaults, can be overridden at initialization time
 		config = {
+
 			// The "normal" size of the presentation, aspect ratio will be preserved
 			// when the presentation is scaled to fit different resolutions
-			width: "auto",
-			height: "auto",
+			width: "100vw",
+			height: "100vh",
+
+			// Factor of the display size that should remain empty around the content
+			margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			minScale: 0.2,
+			maxScale: 1.5,
 
 			// Display controls in the bottom right corner
 			controls: true,
